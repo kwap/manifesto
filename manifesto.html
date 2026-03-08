@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KWAP — Manifesto</title>
+<link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAIAEBAAAAAAIAA2AgAAJgAAACAgAAAAACAAKAEAAFwCAACJUE5HDQoaCgAAAA1JSERSAAAAEAAAABAIBgAAAB/z/2EAAAH9SURBVHiclZPNThRBFIW/21XV3TOAIINoosYgSmThz9qVK/zZqzEmoysfwJVP4RsYBRNMNMalYenGPTExEYOERI0iQxTITA/V1ddFD6MwqPEsq3JO7jn3Hjlyc1KzlSZbbxpIbBFKqCq/Q6T8UUC3cuLTNdLRKjZbabI+v0qxliEmQnOFoEgc/WJHgmY5iCBJhOYF2fwqnB1B9o32a6uRIamBUGCGYqIBh//cgkIRI4RNT3JyAC0g/9gEF6GtQKWWEklqwQoSCSHzHLh3hlPzVzEjCajiN9vsr59g8u110nPDFD6UNq0gqSVCtTS27TUxmIpDnOAzT60+wdj0FMt3XvHj+RKm4tCiw1HFshtBUcB/bVG7Mc7Y9EWW6nM0Hi/g+hM0KN2kgahHwAiF99RuT3B89hJLtzrkgQ55F3omUF9gbMLh++dZvPaS788+lOS8l7z3BP+JHgFxESFv8+nua8afXma4PoHfaCNW9uLvHWLkHI1HC+SrLY7PXgFlZ4h/FTCCAO5ghcaTRcTNMTYzBVZYe/gO25fsOPPeENuB0PKoV1zqaMwsAHDswQXC+hbrL5YxVYd2jkcGjw5qc6VZegxghty/T9mWfaiOVrGqumNF/lsbvmTdMmlQJLW032+UZYojyAs0V1QVG/fFyCHp7qNb2z/Vefu9ANfn+Al4Yu6H/1NrMAAAAABJRU5ErkJggolQTkcNChoKAAAADUlIRFIAAAAgAAAAIAgGAAAAc3p69AAAAO9JREFUeJztljsOgzAQRIfIDb0rN3SRTEuXi3CD1DlK6tyAi+QIsZSOnp4GiRQI8pEimd2JaTKVQSvek7FXm7nKjdgwBgBw3AMAutM1CdSeD9PicsdufpkK/snKXOXG7tYlg7/Glva5A1vFRBUV+bIe2p5WGyVgihw+1Mtz8M3XD6+pnUP7BRI4TUAKpwho4GoBLVwlwICLBVhwsQALLhJgwkUCTLhKgBWxgA/1W99PJhB8Q5UQ7QBTQiQwtD1NQnwGWBKqW8CQUF9DrQSlD2gkaI1IKhE1lv9qKLWljZuK1/T8ZAMJK38BA0yHYas8AKEekbh7geIHAAAAAElFTkSuQmCC">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+
+  /* ── LIGHT THEME (default) ── */
+  :root, [data-theme="light"] {
+    --bg: #f4f0e8;
+    --bg-deep: #ece8df;
+    --text: #2a2a28;
+    --text-dim: #8a8578;
+    --accent: #1a6b3c;
+    --accent-glow: rgba(26, 107, 60, 0.08);
+    --accent2: #b35c00;
+    --accent2-glow: rgba(179, 92, 0, 0.06);
+    --border: #c8c2b6;
+    --border-bright: #9a9488;
+    --scanline-b: rgba(0, 0, 0, 0.015);
+    --vignette: rgba(0, 0, 0, 0.05);
+  }
+
+  /* ── DARK THEME ── */
+  [data-theme="dark"] {
+    --bg: #060906;
+    --bg-deep: #0a0f0a;
+    --text: #ccddcc;
+    --text-dim: #446644;
+    --accent: #33ff66;
+    --accent-glow: rgba(51, 255, 102, 0.12);
+    --accent2: #ffaa22;
+    --accent2-glow: rgba(255, 170, 34, 0.15);
+    --border: #1a331a;
+    --border-bright: #2a5a2a;
+    --scanline-b: rgba(0, 0, 0, 0.08);
+    --vignette: rgba(0, 0, 0, 0.4);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    font-size: 15px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-bright) var(--bg);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background 0.4s ease, color 0.4s ease;
+  }
+
+  /* ── CRT SCANLINES ── */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 2px,
+      var(--scanline-b) 2px, var(--scanline-b) 4px
+    );
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at center, transparent 50%, var(--vignette) 100%);
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* ── LAYOUT ── */
+  .terminal { max-width: 76ch; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* ── THEME TOGGLE ── */
+  .theme-toggle {
+    position: fixed;
+    top: 1.2rem;
+    right: 1.5rem;
+    z-index: 1001;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    padding: 0.35rem 0.7rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+  }
+  .theme-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* ── HEADER ── */
+  .header-art {
+    color: var(--accent);
+    font-size: 0.75rem;
+    line-height: 1.15;
+    letter-spacing: 0.05em;
+    white-space: pre;
+    text-shadow: 0 0 10px var(--accent-glow);
+    overflow: hidden;
+  }
+
+  [data-theme="dark"] .header-art {
+    animation: flicker 4s infinite alternate;
+  }
+
+  @keyframes flicker {
+    0%, 95%, 100% { opacity: 1; }
+    96% { opacity: 0.85; }
+    97% { opacity: 1; }
+    98% { opacity: 0.9; }
+  }
+
+  /* ── PROMPT LINE ── */
+  .prompt-line {
+    color: var(--accent);
+    font-size: 0.8rem;
+    margin-top: 0.8rem;
+  }
+  .prompt-path { color: var(--text-dim); }
+  .cursor {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.05em;
+    background: var(--accent);
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  .tagline {
+    color: var(--text-dim);
+    margin-top: 0.6rem;
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+
+  /* ── DIVIDERS ── */
+  .divider {
+    color: var(--border);
+    margin: 1.8rem 0;
+    white-space: pre;
+    font-size: 0.8rem;
+    overflow: hidden;
+    transition: color 0.4s ease;
+  }
+  .divider.bright { color: var(--border-bright); }
+
+  /* ── SECTIONS ── */
+  .section-label {
+    color: var(--accent2);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    text-shadow: 0 0 8px var(--accent2-glow);
+    transition: color 0.4s ease;
+  }
+  .section-label::before { content: '┌─ '; color: var(--border-bright); }
+
+  p { margin-bottom: 1rem; font-weight: 300; }
+
+  .highlight {
+    color: var(--accent);
+    font-weight: 500;
+    text-shadow: 0 0 6px var(--accent-glow);
+  }
+  .accent2 { color: var(--accent2); }
+  .dim { color: var(--text-dim); }
+  em { font-style: italic; color: var(--accent); }
+
+  /* ── VALUES GRID ── */
+  .values { display: grid; grid-template-columns: 1fr 1fr; gap: 0.2rem 2.5rem; margin: 0.5rem 0; }
+  .value-item { padding: 0.6rem 0; }
+  .value-name {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-shadow: 0 0 8px var(--accent-glow);
+  }
+  .value-desc { font-size: 0.8rem; font-weight: 300; margin-top: 0.2rem; }
+
+  /* ── FOUR PILLARS ── */
+  .pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem 2.5rem; margin-top: 0.5rem; }
+  .pillar { padding: 0.6rem 0; }
+  .pillar-name {
+    color: var(--accent2);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-shadow: 0 0 8px var(--accent2-glow);
+  }
+  .pillar-desc { font-size: 0.8rem; font-weight: 300; margin-top: 0.2rem; }
+
+  /* ── QUOTE ── */
+  .quote-block {
+    border-left: 2px solid var(--border-bright);
+    padding: 0.8rem 0 0.8rem 1.5rem;
+    margin: 0.5rem 0;
+  }
+  .quote-text { font-style: italic; font-weight: 300; font-size: 0.9rem; }
+  .quote-prelude { font-size: 0.85rem; font-weight: 400; margin-bottom: 0.8rem; }
+  .quote-author { color: var(--text-dim); font-size: 0.8rem; margin-top: 0.5rem; }
+
+  .manifesto-body p { font-size: 0.9rem; }
+
+  /* ── FOOTER ── */
+  .footer {
+    color: var(--border);
+    font-size: 0.7rem;
+    margin-top: 2rem;
+    text-align: center;
+    white-space: pre;
+  }
+
+  /* ── FADE IN ── */
+  .fade-section {
+    opacity: 0;
+    transform: translateY(6px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+  .fade-section:nth-child(2)  { animation-delay: 0.05s; }
+  .fade-section:nth-child(3)  { animation-delay: 0.15s; }
+  .fade-section:nth-child(4)  { animation-delay: 0.3s; }
+  .fade-section:nth-child(5)  { animation-delay: 0.45s; }
+  .fade-section:nth-child(6)  { animation-delay: 0.55s; }
+  .fade-section:nth-child(7)  { animation-delay: 0.65s; }
+  .fade-section:nth-child(8)  { animation-delay: 0.75s; }
+  .fade-section:nth-child(9)  { animation-delay: 0.85s; }
+  .fade-section:nth-child(10) { animation-delay: 0.95s; }
+  .fade-section:nth-child(11) { animation-delay: 1.05s; }
+  .fade-section:nth-child(12) { animation-delay: 1.15s; }
+  .fade-section:nth-child(13) { animation-delay: 1.25s; }
+  .fade-section:nth-child(14) { animation-delay: 1.35s; }
+
+  @media (max-width: 600px) {
+    html { font-size: 13px; }
+    .terminal { padding: 1.2rem 1rem 3rem; }
+    .header-art { font-size: 0.48rem; }
+    .values, .pillars { grid-template-columns: 1fr; gap: 0; }
+    .theme-toggle { top: 0.8rem; right: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+  <span id="toggle-text">dark</span>
+</button>
+
+<main class="terminal">
+
+  <div class="fade-section">
+    <div class="header-art" role="img" aria-label="KWAP">
+ ██╗  ██╗██╗    ██╗ █████╗ ██████╗
+ ██║ ██╔╝██║    ██║██╔══██╗██╔══██╗
+ █████╔╝ ██║ █╗ ██║███████║██████╔╝
+ ██╔═██╗ ██║███╗██║██╔══██║██╔═══╝
+ ██║  ██╗╚███╔███╔╝██║  ██║██║
+ ╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝</div>
+  </div>
+
+  <div class="fade-section">
+    <div class="prompt-line"><span class="prompt-path">~/manifesto</span> $ cat values.txt<span class="cursor"></span></div>
+    <div class="tagline">/* visionary catalyst · builder · zero-to-one */</div>
+  </div>
+
+  <div class="fade-section">
+    <div class="divider bright">═══════════════════════════════════════════════════════════════════</div>
+  </div>
+
+  <div class="fade-section">
+    <div class="section-label">Values</div>
+    <div class="values">
+      <div class="value-item">
+        <div class="value-name">› Freedom</div>
+        <div class="value-desc">The foundation. Space to think, choose, move, and create.</div>
+      </div>
+      <div class="value-item">
+        <div class="value-name">› Beauty</div>
+        <div class="value-desc">Deeply essential. In design, people, places, and ideas.</div>
+      </div>
+      <div class="value-item">
+        <div class="value-name">› Enthusiasm</div>
+        <div class="value-desc">Be bold. Be expressive. Be alive. Burn bright.</div>
+      </div>
+      <div class="value-item">
+        <div class="value-name">› Purpose</div>
+        <div class="value-desc">Serve humanity honestly. Profit follows — never leads.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fade-section">
+    <div class="divider">───────────────────────────────────────────────────────────────────</div>
+  </div>
+
+  <div class="fade-section">
+    <div class="section-label">Manifesto</div>
+    <div class="manifesto-body">
+      <p>Freedom is the prerequisite. It grants the space to think, choose, and act. Profit is necessary, but it cannot be the driver — my work must serve humanity honestly, ruling out industries that exploit rather than uplift.</p>
+      <p>With that clarity comes <span class="highlight">enthusiasm</span>. Bold, expressive, alive. I see beauty and simplicity everywhere. I want to make more of it.</p>
+    </div>
+  </div>
+
+  <div class="fade-section">
+    <div class="divider">───────────────────────────────────────────────────────────────────</div>
+  </div>
+
+  <div class="fade-section">
+    <div class="section-label">Identity</div>
+    <div class="manifesto-body">
+      <p>I thrive in the <span class="highlight">zero-to-one</span> phase — where ideas take shape, strategies form, and prototypes get built. High emotional intelligence and strong intuition are central to how I work and how I lead.</p>
+      <p>I believe in a bias towards action: <span class="accent2">do, observe, learn, improve, repeat.</span> I have a natural drive to understand the <em>why</em> and <em>how</em> behind problems. I am comfortable where others hesitate — in the unknown. Busy work, pencil pushing, absurd rules, and politics drain me.</p>
+      <p>When purpose aligns with values, I become the force that brings ideas to life.</p>
+    </div>
+  </div>
+
+  <div class="fade-section">
+    <div class="divider">───────────────────────────────────────────────────────────────────</div>
+  </div>
+
+  <div class="fade-section">
+    <div class="section-label">Daily Practice</div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-name">create.</div>
+        <div class="pillar-desc">Write, build, draw, code, cook. Turn thought into reality.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-name">consume.</div>
+        <div class="pillar-desc">Read books. Watch films. Study art. Good input sharpens good output.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-name">move.</div>
+        <div class="pillar-desc">Walk, lift, run, dance. A stagnant body distorts thinking.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-name">connect.</div>
+        <div class="pillar-desc">Keep a community. Shared reality keeps you sane.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fade-section">
+    <div class="divider bright">═══════════════════════════════════════════════════════════════════</div>
+  </div>
+
+  <div class="fade-section">
+    <div class="footer">
+┌───────────────────────────────────┐
+│  served from the void · est. now  │
+└───────────────────────────────────┘</div>
+  </div>
+
+</main>
+
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    document.getElementById('toggle-text').textContent = next === 'light' ? 'dark' : 'light';
+  }
+</script>
+</body>
+</html>
